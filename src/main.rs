@@ -52,6 +52,6 @@ async fn main() -> tide::Result<()> {
     app.at("/new/:file").put(upload);
     app.at("/").serve_dir("images/")?;
     info!("Created Routes");
-    app.listen("0.0.0.0:3000").await?;
+    app.listen("0.0.0.0:3001").await?;
     Ok(())
 }
