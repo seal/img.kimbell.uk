@@ -12,6 +12,21 @@ This project is a simple image upload and sharing service implemented in Rust us
 ### Bash Script
 The Bash script (`upload.sh`) is designed to be bound to a key combination in the i3 window manager. It captures a screenshot using Flameshot, saves it to a temporary file, uploads it to the server, and copies the image URL to the clipboard. The script has a placeholder domain that needs to be set up before use.
 
+### Env setup
+To set up the domain, create a `.env` file in the project root with the following content:
+
+```dotenv
+DOMAIN=https://your-image-upload-domain.com
+API_KEY=YOURAPI-KEY-HERE
+```
+Then run:
+```bash
+chmod +x setup.sh
+```
+```bash
+./setup.sh
+```
+
 ### i3 setup
 ```bash
 chmod +x upload.sh
@@ -21,12 +36,6 @@ Inside your i3 config:
 bindsym $mod+a exec --no-startup-id ~/path/to/upload.sh
 ```
 
-To set up the domain, create a `.env` file in the project root with the following content:
-
-```dotenv
-DOMAIN=https://your-image-upload-domain.com
-API_KEY=YOURAPI-KEY-HERE
-```
 
 ### Rust Server
 1. Install Rust and Cargo: Follow the instructions on [Rust's official website](https://www.rust-lang.org/).
