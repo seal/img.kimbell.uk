@@ -25,10 +25,11 @@ async fn main() -> tide::Result<()> {
         ));
     }
     dotenv().ok();
+    std::env::var("DOMAIN").expect("No domain env variable set");
+    std::env::var("API_KEY").expect("No api-key env variable set");
     info!("Env vars OK");
     let mut app = tide::new();
     app.with(tide::log::LogMiddleware::new());
-    info!("DB Connection OK");
     app.with(After(|mut res: Response| async {
         if let Some(err) = res.downcast_error::<async_std::io::Error>() {
             match err.kind() {

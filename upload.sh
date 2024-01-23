@@ -1,15 +1,20 @@
 #!/bin/bash
-## added into i3 via:
-# bindsym $mod+a exec --no-startup-id ~/rust/image-tool/upload.sh
 
+# Load environment variables from .env file
+if [ -f .env ]; then
+  source .env
+else
+  echo "Error: .env file not found."
+  exit 1
+fi
 
+# Check if xclip is installed
 if ! command -v xclip &> /dev/null; then
     echo "Error: xclip is not installed. Please install it first."
     exit 1
 fi
 
 flameshot_cmd="flameshot gui"
-
 $flameshot_cmd
 
 temp_file=$(mktemp /tmp/flameshot_image_XXXXXX.png)
@@ -21,12 +26,12 @@ if [ ! -s "$temp_file" ]; then
     exit 1
 fi
 
-upload_url=https://img.kimbell.uk/new/
+upload_url="$DOMAIN"  
+api_key="$API_KEY"  
 
-response=$(curl -s -T "$temp_file" "$upload_url")
-
+response=$(curl -s -H "API-KEY: $api_key" -T "$temp_file" "$upload_url/new/")
+echo $reponse
 image_url=$(echo "$response" | jq -r '.file')
-
 
 echo -n "$image_url" | xclip -selection clipboard
 
