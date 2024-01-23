@@ -9,7 +9,7 @@ fi
 flameshot_cmd="flameshot gui"
 $flameshot_cmd
 
-temp_file=$(mktemp /tmp/flameshot_image_XXXXXX.png)
+temp_file=$(mktemp /tmp/XXXXXX.png)
 xclip -selection clipboard -t image/png -o > "$temp_file"
 
 if [ ! -s "$temp_file" ]; then
